@@ -11,15 +11,15 @@ private:
     Node *next;
     float value;
 public:
+    Node(float value) { this->value = value; }
+
+    ~Node() {};
+
     float getValue() {
         return value;
     };
 
-    void setValue(float value) {
-        this->value = value;
-    }
-
-    Node* getNextNode() {
+    Node *getNextNode() {
         return next;
     }
 
@@ -27,4 +27,5 @@ public:
         next = node;
     }
 };
+
 #endif //FIRSLAB_NODE_H

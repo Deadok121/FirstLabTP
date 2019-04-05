@@ -13,6 +13,8 @@ private:
     Node *firstNode = nullptr;
     int lenght = 0;
 public:
+    Queue(){};
+    ~Queue(){};
     int getLenght() {
         return lenght;
     }

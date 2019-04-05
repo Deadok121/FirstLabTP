@@ -11,8 +11,9 @@
 class HarmonicQueue : public Queue {
 public:
     float findHarmonicMean();
+    HarmonicQueue() {};
+    ~HarmonicQueue() {};
 };
-
 
 
 #endif //FIRSLAB_HARMONICQUEUE_H
