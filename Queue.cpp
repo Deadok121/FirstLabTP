@@ -45,7 +45,7 @@ float Queue::pop() {
     }
 
     Node *node = getFirstNode();
-    int deletingValue;
+    float deletingValue;
     if (node->getNextNode() == nullptr) {
         deletingValue = node->getValue();
         cout << "Deleted : " << deletingValue << " and queue is empty!";

@@ -15,7 +15,7 @@ public:
         return value;
     };
 
-    void setValue(int value) {
+    void setValue(float value) {
         this->value = value;
     }
 
