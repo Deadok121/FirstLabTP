@@ -4,8 +4,10 @@
 using namespace std;
 
 void printOptions();
+
 int main() {
     HarmonicQueue queue;
+    HarmonicQueue secondQueue;
     printOptions();
     int choice;
     do {
@@ -19,30 +21,63 @@ int main() {
                 queue.addNode(value);
                 break;
             case 2:
-                queue.pop();
+                float val;
+                cout << "Value : " << endl;
+                cin >> val;
+                secondQueue.addNode(val);
                 break;
             case 3:
-                queue.display();
+                queue.pop();
                 break;
             case 4:
-                cout << "\nHarmonic mean : " << queue.findHarmonicMean() << endl;
+                secondQueue.pop();
                 break;
             case 5:
+                cout << "\nFirst queue :";
+                queue.display();
+                cout << "\nSecond queue :";
+                secondQueue.display();
+                break;
+            case 6:
+                cout << "\nHarmonic mean first queue : "
+                     << queue.findHarmonicMean() << endl;
+                break;
+            case 7:
+                cout << "\nHarmonic mean second queue : "
+                     << secondQueue.findHarmonicMean() << endl;
+                break;
+            case 8: {
+                cout << "\nMerged queue : " << endl;
+                Queue merged = merge(queue, secondQueue);
+                merged.display();
+                break;
+            }
+            case 9: {
+                cout << "\nCopy of first queue : " << endl;
+                Queue copy = queue.getCopy();
+                copy.display();
+            }
+            case 10:
                 cout << "Exit" << endl;
                 break;
             default:
                 cout << "Invalid choice" << endl;
         }
-    } while (choice != 5);
+    } while (choice != 10);
     cin.get();
     return 0;
 }
 
 
 void printOptions() {
-    cout << "1) Push element to queue" << endl;
-    cout << "2) Pop element from queue" << endl;
-    cout << "3) Display all the elements of queue" << endl;
-    cout << "4) Find harmonic mean" << endl;
-    cout << "5) Exit" << endl;
+    cout << "1) Push element to first queue" << endl;
+    cout << "2) Push element to second queue" << endl;
+    cout << "3) Pop element from first queue" << endl;
+    cout << "4) Pop element from second queue" << endl;
+    cout << "5) Display all the elements of 2 queues" << endl;
+    cout << "6) Find harmonic mean of first queue" << endl;
+    cout << "7) Find harmonic mean of second queue" << endl;
+    cout << "8) Merge and display new third queue" << endl;
+    cout << "9) Copy and display first queue" << endl;
+    cout << "10) Exit" << endl;
 };

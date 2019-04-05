@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/Roman/CLionProjects/firsLab/HarmonicQueue.h
+Queue.h
+/Users/Roman/CLionProjects/firsLab/Queue.h
+
 /Users/Roman/CLionProjects/firsLab/Node.h
 
 /Users/Roman/CLionProjects/firsLab/Queue.cpp
@@ -19,4 +23,10 @@ Queue.h
 /Users/Roman/CLionProjects/firsLab/Queue.h
 Node.h
 /Users/Roman/CLionProjects/firsLab/Node.h
+
+/Users/Roman/CLionProjects/firsLab/main.cpp
+iostream
+-
+HarmonicQueue.h
+/Users/Roman/CLionProjects/firsLab/HarmonicQueue.h
 

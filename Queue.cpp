@@ -10,32 +10,35 @@ using namespace std;
 
 Queue merge(Queue first, Queue second) {
     Queue result;
-    result = first.getCopy();
-    Queue secondCopy = second.getCopy();
-    Node *iterator = result.getFirstNode();
-    while (iterator->getNextNode() != nullptr) {
-        iterator = iterator->getNextNode();
+    Node *copy = first.getFirstNode();
+    result.addNode(copy->getValue());
+    while (copy->getNextNode() != nullptr) {
+        copy = copy->getNextNode();
+        result.addNode(copy->getValue());
     }
-    iterator->setNextNode(secondCopy.getFirstNode());
+    copy = second.getFirstNode();
+    result.addNode(copy->getValue());
+    while (copy->getNextNode() != nullptr) {
+        copy = copy->getNextNode();
+        result.addNode(copy->getValue());
+    }
     return result;
 }
 
 void Queue::addNode(float value) {
     if (getFirstNode() == nullptr) {
-        Node *firstNode = new Node();
-        firstNode->setValue(value);
+        Node *firstNode = new Node(value);
         setFirstNode(firstNode);
         incrementLenght();
         return;
     }
 
     Node *oldNode = getFirstNode();
-    Node *newNode = new Node();
+    Node *newNode = new Node(value);
     while (oldNode->getNextNode() != nullptr) {
         oldNode = oldNode->getNextNode();
     }
     oldNode->setNextNode(newNode);
-    newNode->setValue(value);
     incrementLenght();
 }
 
@@ -46,18 +49,19 @@ float Queue::pop() {
 
     Node *node = getFirstNode();
     float deletingValue;
-    if (node->getNextNode() == nullptr) {
-        deletingValue = node->getValue();
-        cout << "Deleted : " << deletingValue << " and queue is empty!";
-        delete node;
-        decrementLenght();
-        return deletingValue;
+    if (node->getNextNode() != nullptr) {
+        setFirstNode(node->getNextNode());
     }
+    deletingValue = node->getValue();
+    cout << "Deleted : " << deletingValue << endl;
+    delete node;
+    decrementLenght();
+    return deletingValue;
 }
 
 void Queue::display() {
     if (getFirstNode() == nullptr) {
-        cout << "Queue is empty";
+        cout << "Queue is empty" << endl;
         return;
     }
 
