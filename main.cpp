@@ -27,10 +27,10 @@ int main() {
                 secondQueue.addNode(val);
                 break;
             case 3:
-                queue.pop();
+                cout << "Deleted : " << queue.pop() << endl;;
                 break;
             case 4:
-                secondQueue.pop();
+                cout << "Deleted : " << secondQueue.pop() << endl;
                 break;
             case 5:
                 cout << "\nFirst queue :";
@@ -48,7 +48,7 @@ int main() {
                 break;
             case 8: {
                 cout << "\nMerged queue : " << endl;
-                Queue merged = merge(queue, secondQueue);
+                Queue merged = queue.mergeWith(secondQueue);
                 merged.display();
                 break;
             }

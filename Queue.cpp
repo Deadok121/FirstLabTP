@@ -8,83 +8,117 @@
 
 using namespace std;
 
-Queue merge(Queue first, Queue second) {
-    Queue result;
-    Node *copy = first.getFirstNode();
-    result.addNode(copy->getValue());
-    while (copy->getNextNode() != nullptr) {
-        copy = copy->getNextNode();
-        result.addNode(copy->getValue());
-    }
-    copy = second.getFirstNode();
-    result.addNode(copy->getValue());
-    while (copy->getNextNode() != nullptr) {
-        copy = copy->getNextNode();
-        result.addNode(copy->getValue());
+Queue Queue::mergeWith(Queue second) {
+    Queue result = getCopy();
+    Node *last = second.getLastNode();
+    int i = getLenght();
+    while (i > 0) {
+        for (int j = i; j > 1; j--) {
+            last = last->getPrevious();
+        }
+        result.addNode(last->getValue());
+        last = second.getLastNode();
+        i--;
     }
     return result;
 }
 
 void Queue::addNode(float value) {
-    if (getFirstNode() == nullptr) {
+    if (getLastNode() == nullptr) {
         Node *firstNode = new Node(value);
-        setFirstNode(firstNode);
+        setLastNode(firstNode);
         incrementLenght();
         return;
     }
 
-    Node *oldNode = getFirstNode();
+    Node *oldNode = getLastNode();
     Node *newNode = new Node(value);
-    while (oldNode->getNextNode() != nullptr) {
-        oldNode = oldNode->getNextNode();
-    }
-    oldNode->setNextNode(newNode);
+    newNode->setPrevious(oldNode);
+    setLastNode(newNode);
     incrementLenght();
 }
 
 float Queue::pop() {
-    if (getFirstNode() == nullptr) {
-        throw invalid_argument("Queue is empty!");
+    if (getLastNode() == nullptr) {
+        cout << "Queue is empty!" << endl;
+        return 0;
+    }
+    if (getLenght() == 1) {
+        float deletingValue = getLastNode()->getValue();
+        getLastNode()->setPrevious(nullptr);
+        delete getLastNode();
+        decrementLenght();
+        setLastNode(nullptr);
+        return deletingValue;
     }
 
-    Node *node = getFirstNode();
-    float deletingValue;
-    if (node->getNextNode() != nullptr) {
-        setFirstNode(node->getNextNode());
+    Node *last = getLastNode();
+    int i = getLenght();
+    while (i > 2) {
+        last = last->getPrevious();
+        i--;
     }
-    deletingValue = node->getValue();
-    cout << "Deleted : " << deletingValue << endl;
-    delete node;
+    Node *deleting = last->getPrevious();
+    last->setPrevious(nullptr);
+    delete deleting;
+    float deletingValue = deleting->getValue();
     decrementLenght();
     return deletingValue;
 }
 
 void Queue::display() {
-    if (getFirstNode() == nullptr) {
+    if (!getLastNode() || getLenght() == 0) {
         cout << "Queue is empty" << endl;
         return;
     }
 
-    Node *node = getFirstNode();
+    Node *node = getLastNode();
     cout << " " << node->getValue() << " ";
-    while (node->getNextNode() != nullptr) {
-        node = node->getNextNode();
+    for (int i = 0; i < getLenght() - 1; i++) {
+        node = node->getPrevious();
         cout << " " << node->getValue() << " ";
     }
     cout << endl;
 }
 
 Queue Queue::getCopy() {
-    if (getFirstNode() == nullptr) {
-        throw invalid_argument("Queue is empty!");
+    if (getLastNode() == nullptr) {
+        Queue queue;
+        return queue;
     }
 
-    Node *node = getFirstNode();
+    Node *last = getLastNode();
     Queue queue;
-    queue.addNode(node->getValue());
-    while (node->getNextNode() != nullptr) {
-        node = node->getNextNode();
-        queue.addNode(node->getValue());
+    int i = getLenght();
+    while (i > 0) {
+        for (int j = i; j > 1; j--) {
+            last = last->getPrevious();
+        }
+        queue.addNode(last->getValue());
+        last = getLastNode();
+        i--;
     }
     return queue;
 }
+
+Queue::~Queue() {
+    int j = getLenght() - 1;
+    for (int i = 0; i < j; i++) {
+        pop();
+    }
+    setLastNode(nullptr);
+    setLength(0);
+}
+
+Queue::Queue(Queue &queue) {
+    int i = queue.lenght;
+    Node *last = queue.getLastNode();
+    while (i > 0) {
+        for (int j = i; j > 1; j--) {
+            last = last->getPrevious();
+        }
+        addNode(last->getValue());
+        last = queue.getLastNode();
+        i--;
+    }
+};

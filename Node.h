@@ -8,7 +8,7 @@
 
 class Node {
 private:
-    Node *next;
+    Node *previous;
     float value;
 public:
     Node(float value) { this->value = value; }
@@ -19,12 +19,12 @@ public:
         return value;
     };
 
-    Node *getNextNode() {
-        return next;
+    Node *getPrevious() {
+        return previous;
     }
 
-    void setNextNode(Node *node) {
-        next = node;
+    void setPrevious(Node *node) {
+        previous = node;
     }
 };
 

@@ -10,11 +10,16 @@
 
 class Queue {
 private:
-    Node *firstNode = nullptr;
+    Node *lastNode = nullptr;
     int lenght = 0;
 public:
-    Queue(){};
-    ~Queue(){};
+    Queue() = default;;
+
+    ~Queue();
+
+
+    Queue(Queue &queue);
+
     int getLenght() {
         return lenght;
     }
@@ -23,21 +28,25 @@ public:
 
     void decrementLenght() { lenght--; }
 
+    void setLength(int lenght) {
+        this->lenght = lenght;
+    }
+
     void addNode(float value);
 
     float pop();
 
     void display();
 
-    Node *getFirstNode() {
-        return firstNode;
+    Node *getLastNode() {
+        return lastNode;
     }
 
-    void *setFirstNode(Node *node) { firstNode = node; }
+    void *setLastNode(Node *node) { lastNode = node; }
 
     Queue getCopy();
-};
 
-Queue merge(Queue first,Queue second);
+    Queue mergeWith(Queue second);
+};
 
 #endif //FIRSLAB_QUEUE_H

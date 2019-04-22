@@ -12,10 +12,10 @@ float HarmonicQueue::findHarmonicMean() {
     }
 
     float invertedSum = 0;
-    Node *node = getFirstNode();
+    Node *node = getLastNode();
     invertedSum += 1 / node->getValue();
-    while (node->getNextNode() != nullptr) {
-        node = node->getNextNode();
+    while (node->getPrevious() != nullptr) {
+        node = node->getPrevious();
         invertedSum += 1 / node->getValue();
     }
     return count / invertedSum;
